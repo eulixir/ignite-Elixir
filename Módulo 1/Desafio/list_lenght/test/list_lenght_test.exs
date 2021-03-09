@@ -1,8 +1,15 @@
 defmodule ListLenghtTest do
   use ExUnit.Case
-  doctest ListLenght
 
-  test "greets the world" do
-    assert ListLenght.hello() == :world
+  describe "call/1" do
+    test "count list elements" do
+      list = [1, 2, 3, 4, 5, 6]
+
+      response = ListLenght.list_length(list)
+
+      expected_response = 6
+
+      assert response == expected_response
+    end
   end
 end
