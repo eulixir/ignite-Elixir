@@ -1,5 +1,5 @@
 defmodule GenReport.GetHours do
-  def get_hours([id, hours, _day, month, year], %{
+  def call([id, hours, _day, month, year], %{
         "all_hours" => all_hours,
         "hours_per_month" => hours_per_month,
         "hours_per_year" => hours_per_year
@@ -15,6 +15,6 @@ defmodule GenReport.GetHours do
     }
   end
 
-  defp sum_values(map, id, date, hours),
-    do: put_in(map[id], Map.put(map[id], date, map[id][date] + hours))
+  defp sum_values(map, id, date, hours), do: put_in(map[id][date], map[id][date] + hours)
+
 end

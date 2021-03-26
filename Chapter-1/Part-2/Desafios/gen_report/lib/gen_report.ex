@@ -33,7 +33,7 @@ defmodule GenReport do
     filename
     |> Parser.parse_file()
     |> Enum.reduce(hours_acc(), fn row, acc ->
-      GetHours.get_hours(row, acc)
+      GetHours.call(row, acc)
     end)
   end
 
@@ -60,20 +60,22 @@ defmodule GenReport do
            "hours_per_year" => hours_per_year2
          }
        ) do
-    all_hours = Map.merge(all_hours1, all_hours2, fn _key, value1, value2 -> value1 + value2 end)
+    all_hours = Map.merge(all_hours1, all_hours2, &sum_values/3)
 
-    hours_per_month =
-      Map.merge(hours_per_month1, hours_per_month2, fn _key, year_map1, year_map2 ->
-        Map.merge(year_map1, year_map2, fn _key, value1, value2 -> value1 + value2 end)
-      end)
+    hours_per_month = merge_maps(hours_per_month1, hours_per_month2)
 
-    hours_per_year =
-      Map.merge(hours_per_year1, hours_per_year2, fn _key, month_map1, month_map2 ->
-        Map.merge(month_map1, month_map2, fn _key, value1, value2 -> value1 + value2 end)
-      end)
+    hours_per_year = merge_maps(hours_per_year1, hours_per_year2)
 
     build_report(all_hours, hours_per_month, hours_per_year)
   end
+
+  defp merge_maps(map1, map2) do
+    Map.merge(map1, map2, fn _key, inner_map1, inner_map2 ->
+      Map.merge(inner_map1, inner_map2, &sum_values/3 )
+    end)
+  end
+
+  defp sum_values(_key, value1, value2), do: value1 + value2
 
   defp hours_acc do
     month_list = Enum.into(@months, %{}, &{&1, 0})
@@ -87,10 +89,11 @@ defmodule GenReport do
 
   defp acc_id_map_gen(value), do: Enum.into(@names, %{}, &{&1, value})
 
-  defp build_report(all_hours, hours_per_month, hours_per_year),
-    do: %{
+  defp build_report(all_hours, hours_per_month, hours_per_year) do
+     %{
       "all_hours" => all_hours,
       "hours_per_month" => hours_per_month,
       "hours_per_year" => hours_per_year
     }
+  end
 end
