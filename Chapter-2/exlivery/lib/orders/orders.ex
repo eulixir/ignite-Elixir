@@ -1,11 +1,33 @@
 defmodule Exlivery.Orders.Order do
-  @keys [:users_cpf, :delivery_adress, :items, :total_price]
+  alias Exlivery.Orders.Item
+  alias Exlivery.Users.User
+
+  @keys [:users_cpf, :delivery_address, :items, :total_price]
 
   @enforce_keys @keys
 
   defstruct @keys
 
-  def build do
-    {:ok, %__MODULE__{users_cpf: nil, delivery_adress: nil, items: nil, total_price: nil}}
+  def build(%User{cpf: cpf, address: address}, [%Item{} | _items] = items) do
+    {:ok,
+    %__MODULE__{
+      users_cpf: cpf,
+      delivery_address: address,
+      items: items,
+      total_price: calculate_total_price(items)
+      }
+    }
+  end
+
+  def build(_user, _items), do: {:error, "Invalid paramters"}
+
+  defp calculate_total_price(items) do
+    Enum.reduce(items, Decimal.new("0.00"), &sum_prices(&1, &2))
+  end
+
+  defp sum_prices(%Item{unity_price: price, quantity: quantity}, acc) do
+    price
+    |> Decimal.mult(quantity)
+    |> Decimal.add(acc)
   end
 end
