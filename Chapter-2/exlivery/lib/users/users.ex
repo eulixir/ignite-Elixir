@@ -3,14 +3,14 @@ defmodule Exlivery.Users.User do
   @enforce_keys @keys
   defstruct @keys
 
-  def build(address, name, email, cpf, age) when age >= 18 and is_bitstring(cpf) do
+  def build(name, address, email, cpf, age) when age >= 18 and is_bitstring(cpf) do
     {:ok,
      %__MODULE__{
+       name: name,
        address: address,
-       age: age,
-       cpf: cpf,
        email: email,
-       name: name
+       cpf: cpf,
+       age: age
      }}
   end
 
