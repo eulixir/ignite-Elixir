@@ -10,13 +10,12 @@ defmodule Exlivery.Orders.Order do
 
   def build(%User{cpf: cpf, address: address}, [%Item{} | _items] = items) do
     {:ok,
-    %__MODULE__{
-      users_cpf: cpf,
-      delivery_address: address,
-      items: items,
-      total_price: calculate_total_price(items)
-      }
-    }
+     %__MODULE__{
+       users_cpf: cpf,
+       delivery_address: address,
+       items: items,
+       total_price: calculate_total_price(items)
+     }}
   end
 
   def build(_user, _items), do: {:error, "Invalid paramters"}
