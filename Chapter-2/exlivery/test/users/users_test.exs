@@ -11,9 +11,9 @@ defmodule ExUnit.Users.UserTest do
         User.build(
           "Jp",
           "Rua das pencas, casa 1",
-           "jp@banana.com",
-           "112250055",
-           19
+          "jp@banana.com",
+          "112250055",
+          19
         )
 
       expected_response = {:ok, build(:users)}
@@ -39,9 +39,9 @@ defmodule ExUnit.Users.UserTest do
         User.build(
           "Jp",
           "Rua dos caixos, casa 1",
-           "jp@banana.com",
-           112250055,
-           19
+          "jp@banana.com",
+          112_250_055,
+          19
         )
 
       assert response == {:error, "Cpf must be a String"}
@@ -59,6 +59,5 @@ defmodule ExUnit.Users.UserTest do
 
     #   assert response == {:error, "Invalid paramters"}
     # end
-
   end
 end
