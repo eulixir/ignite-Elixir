@@ -19,6 +19,4 @@ defmodule Exlivery.Users.Agent do
   end
 
   defp update_state(state, %User{cpf: cpf} = user), do: Map.put(state, cpf, user)
-
-
 end

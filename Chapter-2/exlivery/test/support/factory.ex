@@ -33,7 +33,7 @@ defmodule Exlivery.Factory do
           category: :japonesa,
           quantity: "2",
           unity_price: Decimal.new("20.50")
-      )
+        )
       ],
       total_price: Decimal.new("76.50"),
       user_cpf: "112250055"

@@ -27,16 +27,15 @@ defmodule ExUnit.Orders.OrderTest do
     end
   end
 
+  test "when there is not items in order, returns an error" do
+    users = build(:users)
 
-    test "when there is not items in order, returns an error" do
-      users = build(:users)
+    items = []
 
-      items = [ ]
+    response = Order.build(users, items)
 
-      response = Order.build(users, items)
+    expected_response = {:error, "Invalid paramters"}
 
-      expected_response = {:error, "Invalid paramters"}
-
-      assert response == expected_response
-    end
+    assert response == expected_response
+  end
 end
