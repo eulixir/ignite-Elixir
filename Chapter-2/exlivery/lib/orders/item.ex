@@ -1,5 +1,5 @@
 defmodule Exlivery.Orders.Item do
-  @categories [:pizza, :hamburguer, :prato_feito, :japonesa, :sobrenmsa]
+  @categories [:pizza, :hamburguer, :prato_feito, :japonesa, :sobremesa]
   @keys [:description, :category, :unity_price, :quantity]
 
   @enforce_keys @keys

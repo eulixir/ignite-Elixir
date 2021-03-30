@@ -9,8 +9,8 @@ defmodule ExUnit.Users.UserTest do
     test "when all params are valid, returns the user" do
       response =
         User.build(
-          "Jp",
           "Rua das pencas, casa 1",
+          "Jp",
           "jp@banana.com",
           "112250055",
           19

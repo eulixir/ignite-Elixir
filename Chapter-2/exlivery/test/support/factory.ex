@@ -6,8 +6,8 @@ defmodule Exlivery.Factory do
 
   def users_factory do
     %User{
-      name: "Jp",
       address: "Rua das pencas, casa 1",
+      name: "Jp",
       email: "jp@banana.com",
       cpf: "112250055",
       age: 19
