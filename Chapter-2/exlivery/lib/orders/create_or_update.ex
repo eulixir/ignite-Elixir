@@ -1,5 +1,4 @@
 defmodule Exlivery.Orders.CreateOrUpdate do
-
   alias Exlivery.Orders.Agent, as: OrderAgent
   alias Exlivery.Orders.{Item, Order}
   alias Exlivery.Users.Agent, as: UserAgent
@@ -21,11 +20,11 @@ defmodule Exlivery.Orders.CreateOrUpdate do
   end
 
   defp build_item(%{
-    description: description,
-    category: category,
-    unity_price: unity_price,
-    quantity: quantity
-  }) do
+         description: description,
+         category: category,
+         unity_price: unity_price,
+         quantity: quantity
+       }) do
     case Item.build(description, category, unity_price, quantity) do
       {:ok, item} -> item
       {:error, _reason} = error -> error
