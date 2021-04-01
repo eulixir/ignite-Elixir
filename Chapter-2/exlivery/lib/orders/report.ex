@@ -7,7 +7,6 @@ defmodule Exlivery.Orders.Report do
     order_list = build_order_list()
 
     File.write(filename, order_list)
-
   end
 
   defp build_order_list() do
