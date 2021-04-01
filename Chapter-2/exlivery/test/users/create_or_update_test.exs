@@ -43,12 +43,13 @@ defmodule Exlivery.Users.CreateOrUpdateTest do
 
       assert response == expected_response
     end
+
     test "when there are cpf as integer, returns an error" do
       params = %{
         name: "Jp",
         address: "Rua das bananeiras",
         email: "jp@banana.com",
-        cpf: 12345678900,
+        cpf: 12_345_678_900,
         age: 19
       }
 
