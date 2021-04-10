@@ -8,7 +8,7 @@ defmodule Rockelivery do
   """
 end
 
-# paramas = %{
+# params = %{
 #   address: "Rua das bananeiras",
 #   age: 27,
 #   cep: "73030038",
