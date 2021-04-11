@@ -24,7 +24,7 @@ defmodule Rockelivery.User do
 
   def changeset(params) do
     %__MODULE__{}
-    |>cast(params, @required_params)
+    |> cast(params, @required_params)
     |> validate_required(@required_params)
     |> validate_length(:password_hash, min: 6)
     |> validate_length(:cep, is: 8)
@@ -32,7 +32,7 @@ defmodule Rockelivery.User do
     |> validate_number(:age, greater_than_or_equal_to: 18)
     |> validate_format(:email, ~r/@/)
     |> unique_constraint([:email])
-    |> unique_constraint([:password])
+    |> unique_constraint([:cpf])
     |> put_password_hash()
   end
 

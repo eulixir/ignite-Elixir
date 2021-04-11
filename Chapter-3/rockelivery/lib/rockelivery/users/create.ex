@@ -5,5 +5,6 @@ defmodule Rockelivery.Users.Create do
     params
     |> User.changeset()
     |> Repo.insert()
+
   end
 end
