@@ -21,7 +21,6 @@ defmodule RockeliveryWeb.Plugs.UUIDChecker do
     conn
     |> put_resp_content_type("application/json")
     |> send_resp(:bad_request, body)
-    |>halt()
+    |> halt()
   end
-
 end

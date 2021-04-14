@@ -5,6 +5,7 @@ defmodule RockeliveryWeb.UsersController do
   alias RockeliveryWeb.FallbackController
 
   action_fallback FallbackController
+
   def create(conn, params) do
     with {:ok, %User{} = user} <- Rockelivery.create_user(params) do
       conn
