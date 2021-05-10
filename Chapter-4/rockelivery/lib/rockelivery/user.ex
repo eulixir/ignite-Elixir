@@ -3,6 +3,8 @@ defmodule Rockelivery.User do
 
   import Ecto.Changeset
 
+  alias Rockelivery.Order
+
   alias Ecto.Changeset
 
   @derive {Jason.Encoder, only: [:age, :address, :cep, :cpf, :id, :email, :name]}
@@ -20,6 +22,8 @@ defmodule Rockelivery.User do
     field :password, :string, virtual: true
     field :password_hash, :string
     field :name, :string
+
+    has_many :orders, Order
 
     timestamps()
   end
