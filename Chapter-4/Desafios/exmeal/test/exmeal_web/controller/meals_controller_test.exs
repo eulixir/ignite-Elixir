@@ -1,8 +1,6 @@
 defmodule Exmeal.MealsControllerTest do
   use ExmealWeb.ConnCase, async: true
 
-  alias Exmeal.Meals.Create
-
   describe "create/2" do
     test "when all params are valid, creates a meal", %{conn: conn} do
       params = %{description: "Banana", date: "2001-05-02", calories: "20"}
@@ -45,7 +43,7 @@ defmodule Exmeal.MealsControllerTest do
     test "when id exist, delete the meal", %{conn: conn} do
       params = %{description: "Banana", date: "2001-05-02", calories: "20"}
 
-      {:ok, meal} = Create.call(params)
+      {:ok, meal} = Exmeal.create_meal(params)
 
       id = meal.id
 
@@ -75,7 +73,7 @@ defmodule Exmeal.MealsControllerTest do
     test "when id exist, update the meal", %{conn: conn} do
       params = %{description: "Banana", date: "2001-05-02", calories: "20"}
 
-      {:ok, meal} = Create.call(params)
+      {:ok, meal} = Exmeal.create_meal(params)
 
       id = meal.id
 
@@ -107,10 +105,10 @@ defmodule Exmeal.MealsControllerTest do
   end
 
   describe "get/2" do
-    test "when id exist, returm the meal", %{conn: conn} do
+    test "when id exist, return the meal", %{conn: conn} do
       params = %{description: "Banana", date: "2001-05-02", calories: "20"}
 
-      {:ok, meal} = Create.call(params)
+      {:ok, meal} = Exmeal.create_meal(params)
 
       id = meal.id
 

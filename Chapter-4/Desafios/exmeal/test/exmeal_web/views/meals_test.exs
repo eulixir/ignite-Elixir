@@ -3,19 +3,19 @@ defmodule ExmealWeb.MealsViewTest do
 
   import Phoenix.View
 
-  alias ExmealWeb.MealsView
+  alias Exmeal.Meal
 
-  alias Exmeal.Meals.Create
+  alias ExmealWeb.MealsView
 
   test "render create.json" do
     params = %{description: "Banana", date: "2001-05-02", calories: "20"}
-    {_ok, meal} = Create.call(params)
+    {_ok, meal} = Exmeal.create_meal(params)
 
     response = render(MealsView, "create.json", meal: meal)
 
     assert %{
              meal: %{
-               meal: %Exmeal.Meal{
+               meal: %Meal{
                  calories: 20,
                  date: ~D[2001-05-02],
                  description: "Banana",
@@ -28,12 +28,12 @@ defmodule ExmealWeb.MealsViewTest do
 
   test "render meal.json" do
     params = %{description: "Banana", date: "2001-05-02", calories: "20"}
-    {_ok, meal} = Create.call(params)
+    {_ok, meal} = Exmeal.create_meal(params)
 
     response = render(MealsView, "meal.json", meal: meal)
 
     assert %{
-             meal: %Exmeal.Meal{
+             meal: %Meal{
                calories: 20,
                date: ~D[2001-05-02],
                description: "Banana",

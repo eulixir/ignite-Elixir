@@ -1,8 +1,6 @@
 defmodule Exmeal.Meals.CreateTest do
   use Exmeal.DataCase
 
-  alias Exmeal.Meals.Create
-
   describe "Create Meal" do
     test "when all params are valid, returns the meal" do
       params = %{
@@ -11,7 +9,7 @@ defmodule Exmeal.Meals.CreateTest do
         description: "Banana"
       }
 
-      response = Create.call(params)
+      response = Exmeal.create_meal(params)
 
       assert {:ok,
               %Exmeal.Meal{
@@ -21,13 +19,13 @@ defmodule Exmeal.Meals.CreateTest do
                 id: _id
               }} = response
     end
-    test "when haven invalid params, returns an error" do
+    test "when there are invalid params, returns an error" do
       params = %{
         calories: 20,
         date: ~D[2001-05-02],
       }
 
-      response = Create.call(params)
+      response = Exmeal.create_meal(params)
 
       assert {:error, %Exmeal.Error{}} = response
     end
