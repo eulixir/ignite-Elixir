@@ -7,12 +7,21 @@ defmodule Exmeal.MealTest do
 
   describe "changeset/1" do
     test "when all params are valid, returns a valid changeset" do
-      params = %{description: "Batata", date: "2001-05-02", calories: "20"}
+      user_params = %{
+        name: "Jp",
+        email: "Jp@banana.com",
+        cpf: "12345678900"
+      }
+
+      {_ok, user} = Exmeal.create_user(user_params)
+      user_id = user.id
+
+      params = %{description: "Batata", date: "2001-05-02", calories: "20", user_id: user_id}
 
       response = Meal.changeset(params)
 
       assert %Changeset{
-               changes: %{description: "Batata", date: ~D[2001-05-02], calories: 20},
+               changes: %{description: "Batata", date: ~D[2001-05-02], calories: 20, user_id: user_id},
                valid?: true
              } = response
     end

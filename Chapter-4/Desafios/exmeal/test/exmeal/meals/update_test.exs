@@ -3,10 +3,20 @@ defmodule Exmeal.Meals.UpdateTest do
 
   describe "Update Meal" do
     test "when a valid id is given, returns the meal" do
+      user_params = %{
+        name: "Jp",
+        email: "Jp@banana.com",
+        cpf: "12345678900"
+      }
+
+      {_ok, user} = Exmeal.create_user(user_params)
+      user_id = user.id
+
       params = %{
         calories: 20,
         date: ~D[2001-05-02],
-        description: "Banana"
+        description: "Banana",
+        user_id: user_id
       }
       {_ok, meal} = Exmeal.create_meal(params)
 
@@ -17,7 +27,8 @@ defmodule Exmeal.Meals.UpdateTest do
                 calories: 25,
                 date: ~D[2001-05-02],
                 description: "Banana",
-                id: _id
+                id: _id,
+                user_id: user_id
               }} = response
     end
 

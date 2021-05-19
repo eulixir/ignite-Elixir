@@ -3,7 +3,16 @@ defmodule Exmeal.MealsControllerTest do
 
   describe "create/2" do
     test "when all params are valid, creates a meal", %{conn: conn} do
-      params = %{description: "Banana", date: "2001-05-02", calories: "20"}
+      user_params = %{
+        name: "Jp",
+        email: "Jp@banana.com",
+        cpf: "12345678900"
+      }
+
+      {_ok, user} = Exmeal.create_user(user_params)
+      user_id = user.id
+
+      params = %{description: "Banana", date: "2001-05-02", calories: "20", user_id: user_id}
 
       response =
         conn
@@ -16,7 +25,8 @@ defmodule Exmeal.MealsControllerTest do
                    "calories" => 20,
                    "date" => "2001-05-02",
                    "description" => "Banana",
-                   "id" => _id
+                   "id" => _id,
+                   "user_id" => user_id
                  }
                },
                "message" => "Meal created!"
@@ -27,7 +37,7 @@ defmodule Exmeal.MealsControllerTest do
       params = %{description: "Banana"}
 
       expected_response = %{
-        "message" => %{"calories" => ["can't be blank"], "date" => ["can't be blank"]}
+        "message" => %{"calories" => ["can't be blank"], "date" => ["can't be blank"], "user_id" => ["can't be blank"]}
       }
 
       response =
@@ -41,7 +51,16 @@ defmodule Exmeal.MealsControllerTest do
 
   describe "delete/2" do
     test "when id exist, delete the meal", %{conn: conn} do
-      params = %{description: "Banana", date: "2001-05-02", calories: "20"}
+      user_params = %{
+        name: "Jp",
+        email: "Jp@banana.com",
+        cpf: "12345678900"
+      }
+
+      {_ok, user} = Exmeal.create_user(user_params)
+      user_id = user.id
+
+      params = %{description: "Banana", date: "2001-05-02", calories: "20", user_id: user_id}
 
       {:ok, meal} = Exmeal.create_meal(params)
 
@@ -71,7 +90,16 @@ defmodule Exmeal.MealsControllerTest do
 
   describe "update/2" do
     test "when id exist, update the meal", %{conn: conn} do
-      params = %{description: "Banana", date: "2001-05-02", calories: "20"}
+      user_params = %{
+        name: "Jp",
+        email: "Jp@banana.com",
+        cpf: "12345678900"
+      }
+
+      {_ok, user} = Exmeal.create_user(user_params)
+      user_id = user.id
+
+      params = %{description: "Banana", date: "2001-05-02", calories: "20", user_id: user_id}
 
       {:ok, meal} = Exmeal.create_meal(params)
 
@@ -87,7 +115,8 @@ defmodule Exmeal.MealsControllerTest do
                  "calories" => 20,
                  "date" => "2001-05-02",
                  "description" => "Banana",
-                 "id" => _id
+                 "id" => _id,
+                 "user_id" => user_id
                }
              } = response
     end
@@ -106,7 +135,16 @@ defmodule Exmeal.MealsControllerTest do
 
   describe "get/2" do
     test "when id exist, return the meal", %{conn: conn} do
-      params = %{description: "Banana", date: "2001-05-02", calories: "20"}
+      user_params = %{
+        name: "Jp",
+        email: "Jp@banana.com",
+        cpf: "12345678900"
+      }
+
+      {_ok, user} = Exmeal.create_user(user_params)
+      user_id = user.id
+
+      params = %{description: "Banana", date: "2001-05-02", calories: "20", user_id: user_id}
 
       {:ok, meal} = Exmeal.create_meal(params)
 
@@ -122,7 +160,8 @@ defmodule Exmeal.MealsControllerTest do
                  "calories" => 20,
                  "date" => "2001-05-02",
                  "description" => "Banana",
-                 "id" => _id
+                 "id" => _id,
+                 "user_id" => user_id
                }
              } = response
     end

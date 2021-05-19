@@ -3,10 +3,20 @@ defmodule Exmeal.Meals.CreateTest do
 
   describe "Create Meal" do
     test "when all params are valid, returns the meal" do
+      user_params = %{
+        name: "Jp",
+        email: "Jp@banana.com",
+        cpf: "12345678900"
+      }
+
+      {_ok, user} = Exmeal.create_user(user_params)
+      user_id = user.id
+
       params = %{
         calories: 20,
         date: ~D[2001-05-02],
-        description: "Banana"
+        description: "Banana",
+        user_id: user_id
       }
 
       response = Exmeal.create_meal(params)
@@ -16,7 +26,8 @@ defmodule Exmeal.Meals.CreateTest do
                 calories: 20,
                 date: ~D[2001-05-02],
                 description: "Banana",
-                id: _id
+                id: _id,
+                user_id: user_id
               }} = response
     end
     test "when there are invalid params, returns an error" do
