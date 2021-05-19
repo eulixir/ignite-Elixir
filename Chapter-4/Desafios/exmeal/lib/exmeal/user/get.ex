@@ -1,5 +1,4 @@
 defmodule Exmeal.Users.Get do
-
   alias Exmeal.{Error, Repo, User}
 
   def by_id(id) do

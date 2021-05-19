@@ -3,16 +3,14 @@ defmodule ExmealWeb.MealsViewTest do
 
   import Phoenix.View
 
+  import Exmeal.Factory
+
   alias Exmeal.Meal
 
   alias ExmealWeb.MealsView
 
   test "render create.json" do
-    user_params = %{
-      name: "Jp",
-      email: "Jp@banana.com",
-      cpf: "12345678900"
-    }
+    user_params = build(:users_params)
 
     {_ok, user} = Exmeal.create_user(user_params)
     user_id = user.id
@@ -29,7 +27,7 @@ defmodule ExmealWeb.MealsViewTest do
                  date: ~D[2001-05-02],
                  description: "Banana",
                  id: _id,
-                 user_id: user_id
+                 user_id: _user_id
                }
              },
              message: "Meal created!"
@@ -37,11 +35,7 @@ defmodule ExmealWeb.MealsViewTest do
   end
 
   test "render meal.json" do
-    user_params = %{
-      name: "Jp",
-      email: "Jp@banana.com",
-      cpf: "12345678900"
-    }
+    user_params = build(:users_params)
 
     {_ok, user} = Exmeal.create_user(user_params)
     user_id = user.id
@@ -57,7 +51,7 @@ defmodule ExmealWeb.MealsViewTest do
                date: ~D[2001-05-02],
                description: "Banana",
                id: _id,
-               user_id: user_id
+               user_id: _user_id
              }
            } = response
   end

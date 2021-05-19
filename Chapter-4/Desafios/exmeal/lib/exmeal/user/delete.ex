@@ -1,5 +1,4 @@
 defmodule Exmeal.Users.Delete do
-
   alias Exmeal.{Error, Repo, User}
 
   def call(id) do
