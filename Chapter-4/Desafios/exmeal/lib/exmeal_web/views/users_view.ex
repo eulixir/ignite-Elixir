@@ -5,7 +5,7 @@ defmodule ExmealWeb.UsersView do
 
   def render("create.json", %{user: %User{} = user}) do
     %{
-      message: "user created!",
+      message: "User created!",
       user: %{
         user: user
       }
