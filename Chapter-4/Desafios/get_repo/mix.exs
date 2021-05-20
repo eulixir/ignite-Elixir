@@ -1,23 +1,16 @@
-defmodule Rockelivery.MixProject do
+defmodule GetRepo.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :rockelivery,
+      app: :get_repo,
       version: "0.1.0",
       elixir: "~> 1.7",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps(),
-      test_coverage: [tool: ExCoveralls],
-      preferred_cli_env: [
-        coveralls: :test,
-        "coveralls.detail": :test,
-        "coveralls.post": :test,
-        "coveralls.html": :test
-      ]
+      deps: deps()
     ]
   end
 
@@ -26,7 +19,7 @@ defmodule Rockelivery.MixProject do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {Rockelivery.Application, []},
+      mod: {GetRepo.Application, []},
       extra_applications: [:logger, :runtime_tools]
     ]
   end
@@ -50,13 +43,8 @@ defmodule Rockelivery.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:pbkdf2_elixir, "~> 1.3"},
-      {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
-      {:excoveralls, "~> 0.10", only: :test},
-      {:ex_machina, "~> 2.7.0"},
       {:tesla, "~> 1.4.0"},
       {:hackney, "~> 1.17.0"},
-      {:bypass, "~> 2.1", only: :test}
     ]
   end
 
