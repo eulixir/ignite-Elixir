@@ -1,5 +1,5 @@
 
-defmodule GetRepo.Github.UserRepoInfo do
+defmodule GetRepo.Client.Parser do
   @keys [:id, :name, :description, :html_url, :stargazers_count]
 
   @enforce_keys @keys

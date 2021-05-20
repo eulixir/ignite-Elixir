@@ -1,9 +1,9 @@
-defmodule GetRepo.Github.Client do
+defmodule GetRepo.Client.UserRepo do
   use Tesla
 
   alias Tesla.Env
-  alias Repo.Error
-  alias GetRepo.Github.UserRepoInfo
+  alias GetRepo.Error
+  alias GetRepo.Client.Parser
 
   @base_url "https://api.github.com"
   @request_headers [
@@ -14,7 +14,7 @@ defmodule GetRepo.Github.Client do
   plug Tesla.Middleware.Headers, @request_headers
   plug Tesla.Middleware.JSON
 
-  def get_user_repos(url \\ @base_url, username) do
+  def call(url \\ @base_url, username) do
     "#{url}/users/#{username}/repos"
     |> get()
     |> handle_get()
@@ -27,6 +27,6 @@ defmodule GetRepo.Github.Client do
   end
 
   defp handle_get({:ok, %Env{status: 200, body: body}}) do
-    {:ok, UserRepoInfo.build(body)}
+    {:ok, Parser.build(body)}
   end
 end

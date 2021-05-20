@@ -1,4 +1,4 @@
-defmodule Repo.Error do
+defmodule GetRepo.Error do
   @keys [:status, :result]
 
   @enforce_keys @keys
