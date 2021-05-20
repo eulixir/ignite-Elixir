@@ -3,6 +3,7 @@ defmodule GetRepo.Github.Client do
 
   alias Tesla.Env
   alias Repo.Error
+  alias GetRepo.Github.UserRepoInfo
 
   @base_url "https://api.github.com"
   @request_headers [
@@ -22,15 +23,10 @@ defmodule GetRepo.Github.Client do
   defp handle_get({:error, reason}), do: {:error, Error.build(:bad_request, reason)}
 
   defp handle_get({:ok, %Env{status: 404, body: _body}}) do
-    {:error, Error.build(:bad_request, "User not found")}
+    {:error, Error.build(:bad_request, "Github username not found")}
   end
 
-  defp handle_get({:ok, %Env{status: 200, body: content}}) do
-    # {:ok, get_data_profile(content)}
-    IO.inspect(content.id)
-  end
-
-  defp get_data_profile(%{id: id}) do
-    id
+  defp handle_get({:ok, %Env{status: 200, body: body}}) do
+    {:ok, UserRepoInfo.build(body)}
   end
 end
