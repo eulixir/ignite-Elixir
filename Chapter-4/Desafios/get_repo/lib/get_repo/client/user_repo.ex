@@ -14,16 +14,18 @@ defmodule GetRepo.Client.UserRepo do
   plug Tesla.Middleware.Headers, @request_headers
   plug Tesla.Middleware.JSON
 
-  def call(url \\ @base_url, username) do
+  def get_user_repos(url \\ @base_url, username) do
     "#{url}/users/#{username}/repos"
     |> get()
     |> handle_get()
   end
 
-  defp handle_get({:error, reason}), do: {:error, Error.build(:bad_request, reason)}
+  defp handle_get({:error, reason}) do
+    {:error, Error.build(:bad_request, reason)}
+  end
 
   defp handle_get({:ok, %Env{status: 404, body: _body}}) do
-    {:error, Error.build(:bad_request, "Github username not found")}
+    {:error, Error.build(:not_found, "Github username not found!")}
   end
 
   defp handle_get({:ok, %Env{status: 200, body: body}}) do

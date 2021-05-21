@@ -1,4 +1,3 @@
-
 defmodule GetRepo.Client.Parser do
   @keys [:id, :name, :description, :html_url, :stargazers_count]
 

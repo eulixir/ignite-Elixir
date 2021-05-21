@@ -11,7 +11,6 @@ defmodule GetRepoWeb.Router do
     get "repo/:username", GetRepoController, :show
   end
 
-
   # Enables LiveDashboard only for development
   #
   # If you want to use the LiveDashboard in production, you should put

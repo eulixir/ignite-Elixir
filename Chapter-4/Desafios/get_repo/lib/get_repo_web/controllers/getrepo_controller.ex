@@ -6,7 +6,7 @@ defmodule GetRepoWeb.GetRepoController do
   action_fallback FallbackController
 
   def show(conn, %{"username" => username}) do
-    with {:ok, [%Parser{} | _tail] = user_repos} <- UserRepo.call(username) do
+    with {:ok, [%Parser{} | _tail] = user_repos} <- UserRepo.get_user_repos(username) do
       conn
       |> put_status(:ok)
       |> render("repos.json", user_repos: user_repos)
