@@ -15,7 +15,7 @@ defmodule GetRepo.Client.UserRepoTest do
       {:ok, bypass: bypass}
     end
 
-    test "returns user's repos if user exists", %{bypass: bypass} do
+    test "when username exist, returns the repos", %{bypass: bypass} do
       username = "joaopealves"
       body = build(:user_repos_body)
       url = bypass_url(bypass.port)
@@ -28,7 +28,7 @@ defmodule GetRepo.Client.UserRepoTest do
 
       response = UserRepo.get_user_repos(url, username)
 
-      expected = {
+      expected_response = {
         :ok,
         [
           %Parser{
@@ -42,7 +42,7 @@ defmodule GetRepo.Client.UserRepoTest do
         ]
       }
 
-      assert expected == response
+      assert expected_response == response
     end
 
     test "returns an error if user doesn't exist", %{bypass: bypass} do
@@ -56,9 +56,9 @@ defmodule GetRepo.Client.UserRepoTest do
 
       response = UserRepo.get_user_repos(url, username)
 
-      expected = {:error, %Error{result: "Github username not found!", status: :not_found}}
+      expected_response = {:error, %Error{result: "Github username not found!", status: :not_found}}
 
-      assert expected == response
+      assert expected_response == response
     end
 
     test "returns an error if server is down", %{bypass: bypass} do
@@ -69,8 +69,8 @@ defmodule GetRepo.Client.UserRepoTest do
 
       response = UserRepo.get_user_repos(url, username)
 
-      expected = {:error, %Error{result: :econnrefused, status: :bad_request}}
-      assert expected == response
+      expected_response = {:error, %Error{result: :econnrefused, status: :bad_request}}
+      assert expected_response == response
     end
   end
 

@@ -22,7 +22,7 @@ defmodule GetRepo.Factory do
           "description": "Projeto desenvolvido durante a Next Level Week, feito pela @Rocketseat com 💜",
           "html_url": "https://github.com/joaopealves/inmana",
           "stargazers_count": 8
-        },
+        }
       ]
     )
   end
