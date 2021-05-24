@@ -10,6 +10,8 @@ use Mix.Config
 config :get_repo,
   ecto_repos: [GetRepo.Repo]
 
+config :get_repo, GetRepoWeb.GetRepoController, get_repo_adapter: GetRepo.Client.UserRepo
+
 # Configures the endpoint
 config :get_repo, GetRepoWeb.Endpoint,
   url: [host: "localhost"],
