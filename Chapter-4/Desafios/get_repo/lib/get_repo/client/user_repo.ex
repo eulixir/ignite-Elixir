@@ -4,7 +4,9 @@ defmodule GetRepo.Client.UserRepo do
   alias Tesla.Env
   alias GetRepo.Error
   alias GetRepo.Client.Parser
+  alias GetRepo.Client.Behaviour
 
+  @behaviour Behaviour
   @base_url "https://api.github.com"
   @request_headers [
     {"User-Agent",
