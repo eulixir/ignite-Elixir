@@ -27,7 +27,7 @@ defmodule GetRepo.Client.UserRepo do
   end
 
   defp handle_get({:ok, %Env{status: 404, body: _body}}) do
-    {:error, Error.build(:not_found, "Github username not found!")}
+    {:error, Error.build(:not_found, "Username not found!")}
   end
 
   defp handle_get({:ok, %Env{status: 200, body: body}}) do
