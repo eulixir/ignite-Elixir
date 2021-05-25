@@ -1,24 +1,31 @@
-defmodule RockeliveryWeb.UserControllerTest do
+defmodule RockeliveryWeb.UsersControllerTest do
   use RockeliveryWeb.ConnCase, async: true
 
+  import Mox
   import Rockelivery.Factory
 
+  alias Rockelivery.ViaCep.ClientMock
+
   describe "create/2" do
-    test "when all params are valid, create the user", %{conn: conn} do
+    test "when all params are valid, creates the user", %{conn: conn} do
       params = %{
         "age" => 27,
         "address" => "Rua das bananeiras, 15",
         "cep" => "12345678",
-        "cpf" => "12345678900",
+        "cpf" => "12345678901",
         "email" => "jp@banana.com",
         "password" => "123456",
         "name" => "Jp"
       }
 
+      expect(ClientMock, :get_cep_info, fn _cep ->
+        {:ok, build(:cep_info)}
+      end)
+
       response =
         conn
         |> post(Routes.users_path(conn, :create, params))
-        |> json_response(201)
+        |> json_response(:created)
 
       assert %{
                "message" => "User created",
@@ -27,7 +34,7 @@ defmodule RockeliveryWeb.UserControllerTest do
                    "address" => "Rua das bananeiras, 15",
                    "age" => 27,
                    "cep" => "12345678",
-                   "cpf" => "12345678900",
+                   "cpf" => "12345678901",
                    "email" => "jp@banana.com",
                    "id" => _id,
                    "name" => "Jp"
@@ -36,11 +43,16 @@ defmodule RockeliveryWeb.UserControllerTest do
              } = response
     end
 
-    test "when there are some error, returns the error", %{conn: conn} do
+    test "when there is some error, returns the error", %{conn: conn} do
       params = %{
-        "password" => "123",
-        "name" => "Jp"
+        "password" => "123456",
+        "name" => "jp"
       }
+
+      response =
+        conn
+        |> post(Routes.users_path(conn, :create, params))
+        |> json_response(:bad_request)
 
       expected_response = %{
         "message" => %{
@@ -48,19 +60,14 @@ defmodule RockeliveryWeb.UserControllerTest do
           "age" => ["can't be blank"],
           "cep" => ["can't be blank"],
           "cpf" => ["can't be blank"],
-          "email" => ["can't be blank"],
-          "password" => ["should be at least 6 character(s)"]
+          "email" => ["can't be blank"]
         }
       }
-
-      response =
-        conn
-        |> post(Routes.users_path(conn, :create, params))
-        |> json_response(400)
 
       assert response == expected_response
     end
   end
+
 
   describe "delete/2" do
     test "when there is a user with given id, deletes the user", %{conn: conn} do
