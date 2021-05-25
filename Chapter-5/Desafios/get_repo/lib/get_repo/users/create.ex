@@ -1,5 +1,6 @@
 defmodule GetRepo.Users.Create do
   alias GetRepo.{Error, User, Repo}
+
   def call(params) do
     params
     |> User.changeset()

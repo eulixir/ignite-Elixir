@@ -9,7 +9,12 @@ defmodule GetRepoWeb.Router do
     pipe_through :api
 
     get "/repo/:username", GetRepoController, :show
-    post "/user", UsersController, :create
+
+    post "/users", UsersController, :create
+
+    post "/users/sign_in", UsersController, :sign_in
+
+    get "/users/:id", UsersController, :show
   end
 
   # Enables LiveDashboard only for development

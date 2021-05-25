@@ -34,7 +34,6 @@ defmodule GetRepoWeb.GetRepoControllerTest do
     end
 
     test "returns an error if user doesn't exist", %{conn: conn} do
-
       expect(UserRepoMock, :get_user_repos, fn _username ->
         {:error, Error.build(:not_found, "Username not found!")}
       end)

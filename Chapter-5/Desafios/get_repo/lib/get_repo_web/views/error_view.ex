@@ -1,4 +1,3 @@
-
 defmodule GetRepoWeb.ErrorView do
   use GetRepoWeb, :view
 

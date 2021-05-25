@@ -14,6 +14,10 @@ config :get_repo, GetRepo.Repo,
   migration_primary_key: [type: :binary_id],
   migration_foreign_key: [type: :binary_id]
 
+config :get_repo, GetRepoWeb.Auth.Guardian,
+  issuer: "get_repo",
+  secret_key: "WbSxJvFdiAPSKUCS2YOkwY3ZjIwc5x6wOfza9jRI3gUVOHirUKN4m4ckagLyoWR6"
+
 config :get_repo, GetRepoWeb.GetRepoController, get_repo_adapter: GetRepo.Client.UserRepo
 
 # Configures the endpoint

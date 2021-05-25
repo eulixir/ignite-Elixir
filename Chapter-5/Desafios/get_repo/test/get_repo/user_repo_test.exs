@@ -55,8 +55,7 @@ defmodule GetRepo.Client.UserRepoTest do
 
       response = UserRepo.get_user_repos(url, username)
 
-      expected_response =
-        {:error, %Error{result: "Username not found!", status: :not_found}}
+      expected_response = {:error, %Error{result: "Username not found!", status: :not_found}}
 
       assert expected_response == response
     end
