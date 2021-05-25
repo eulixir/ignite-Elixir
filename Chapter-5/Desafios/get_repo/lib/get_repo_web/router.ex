@@ -5,14 +5,23 @@ defmodule GetRepoWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :auth do
+    plug GetRepoWeb.Auth.Pipeline
+  end
+
   scope "/api", GetRepoWeb do
     pipe_through :api
-
-    get "/repo/:username", GetRepoController, :show
 
     post "/users", UsersController, :create
 
     post "/users/sign_in", UsersController, :sign_in
+
+  end
+
+  scope "/api", GetRepoWeb do
+    pipe_through [:api, :auth]
+
+    get "/repos/:username", GetRepoController, :show
 
     get "/users/:id", UsersController, :show
   end

@@ -18,6 +18,10 @@ config :get_repo, GetRepoWeb.Auth.Guardian,
   issuer: "get_repo",
   secret_key: "WbSxJvFdiAPSKUCS2YOkwY3ZjIwc5x6wOfza9jRI3gUVOHirUKN4m4ckagLyoWR6"
 
+config :get_repo, GetRepoWeb.Auth.Pipeline,
+  module: GetRepoWeb.Auth.Guardian,
+  error_handler: GetRepoWeb.Auth.ErrorHandler
+
 config :get_repo, GetRepoWeb.GetRepoController, get_repo_adapter: GetRepo.Client.UserRepo
 
 # Configures the endpoint
