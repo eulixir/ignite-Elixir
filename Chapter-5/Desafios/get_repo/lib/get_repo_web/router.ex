@@ -8,7 +8,8 @@ defmodule GetRepoWeb.Router do
   scope "/api", GetRepoWeb do
     pipe_through :api
 
-    get "repo/:username", GetRepoController, :show
+    get "/repo/:username", GetRepoController, :show
+    post "/user", UsersController, :create
   end
 
   # Enables LiveDashboard only for development
