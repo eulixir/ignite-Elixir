@@ -5,8 +5,11 @@ defmodule Rockelivery.ViaCep.Client do
 
   alias Rockelivery.Error
 
+  alias Rockelivery.ViaCep.Behaviour
+
   plug Tesla.Middleware.JSON
 
+  @behaviour Behaviour
   @base_url "https://viacep.com.br/ws/"
 
   def get_cep_info(url \\ @base_url, cep) do
@@ -14,6 +17,7 @@ defmodule Rockelivery.ViaCep.Client do
     |> get()
     |> handle_get()
   end
+
 
   defp handle_get({:ok, %Env{status: 200, body: %{"erro" => true}}}) do
     {:error, Error.build(:not_found, "CEP not found!")}
