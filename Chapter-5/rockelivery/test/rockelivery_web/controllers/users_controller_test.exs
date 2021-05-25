@@ -68,7 +68,6 @@ defmodule RockeliveryWeb.UsersControllerTest do
     end
   end
 
-
   describe "delete/2" do
     test "when there is a user with given id, deletes the user", %{conn: conn} do
       id = "69961117-d966-4e2f-ac55-476d4f78ddfa"
