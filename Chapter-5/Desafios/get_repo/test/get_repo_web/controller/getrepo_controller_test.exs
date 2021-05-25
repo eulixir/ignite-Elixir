@@ -7,8 +7,24 @@ defmodule GetRepoWeb.GetRepoControllerTest do
 
   alias GetRepo.Client.UserRepoMock
   alias GetRepo.Error
+  alias GetRepoWeb.Auth.Guardian
 
   describe "create/2" do
+    setup %{conn: conn} do
+      params = %{password: "banana"}
+
+      user =
+        params
+        |> GetRepo.User.changeset()
+        |> GetRepo.Repo.insert()
+
+        IO.inspect(Guardian.encode_and_sign(user))
+      {:ok, token, _claims} = Guardian.encode_and_sign(user)
+      conn = put_req_header(conn, "authorization", "Bearer #{token}")
+
+      {:ok, conn: conn, user: user}
+    end
+
     test "when the user exist, return a map", %{conn: conn} do
       username = "joaopealves"
 
