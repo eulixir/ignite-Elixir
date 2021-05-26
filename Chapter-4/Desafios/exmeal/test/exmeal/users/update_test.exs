@@ -3,20 +3,22 @@ defmodule Exmeal.User.UpdateTest do
 
   import Exmeal.Factory
 
+  alias Exmeal.User
+
   describe "Update Meal" do
     test "when a valid id is given, returns the meal" do
       user_params = build(:users_params)
 
-      {_ok, user} = Exmeal.create_user(user_params)
+      {:ok, %User{id: id}} = Exmeal.create_user(user_params)
 
-      response = Exmeal.update_user(%{"id" => user.id, "name" => "Jp Alves"})
+      response = Exmeal.update_user(%{"id" => id, "name" => "Jp Alves"})
 
       assert {:ok,
               %Exmeal.User{
                 cpf: "12345678900",
                 email: "jp@banana.com",
                 name: "Jp Alves",
-                id: _id
+                id: ^id
               }} = response
     end
 

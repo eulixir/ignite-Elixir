@@ -3,20 +3,22 @@ defmodule Exmeal.Users.DeleteTest do
 
   import Exmeal.Factory
 
+  alias Exmeal.User
+
   describe "Delete user" do
     test "when a valid id is given, returns the user" do
       params = build(:users_params)
 
-      {_ok, user} = Exmeal.create_user(params)
+      {:ok, %User{id: id}} = Exmeal.create_user(params)
 
-      response = Exmeal.delete_user(user.id)
+      response = Exmeal.delete_user(id)
 
       assert {:ok,
               %Exmeal.User{
                 cpf: "12345678900",
                 email: "jp@banana.com",
                 name: "Jp",
-                id: _id
+                id: ^id
               }} = response
     end
 

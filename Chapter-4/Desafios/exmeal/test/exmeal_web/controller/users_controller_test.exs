@@ -3,6 +3,8 @@ defmodule Exmeal.UsersControllerTest do
 
   import Exmeal.Factory
 
+  alias Exmeal.User
+
   describe "create/2" do
     test "when all params are valid, creates a user", %{conn: conn} do
       params = build(:users_params)
@@ -12,13 +14,15 @@ defmodule Exmeal.UsersControllerTest do
         |> post(Routes.users_path(conn, :create, params))
         |> json_response(:created)
 
+      %{"user" => %{"user" => %{"id" => id}}} = response
+
       assert %{
                "user" => %{
                  "user" => %{
                    "name" => "Jp",
                    "email" => "jp@banana.com",
                    "cpf" => "12345678900",
-                   "id" => _id
+                   "id" => ^id
                  }
                },
                "message" => "User created!"
@@ -49,9 +53,7 @@ defmodule Exmeal.UsersControllerTest do
     test "when id exist, delete the user", %{conn: conn} do
       params = build(:users_params)
 
-      {:ok, user} = Exmeal.create_user(params)
-
-      id = user.id
+      {:ok, %User{id: id}} = Exmeal.create_user(params)
 
       response =
         conn
@@ -70,8 +72,8 @@ defmodule Exmeal.UsersControllerTest do
         |> json_response(:not_found)
 
       assert %{
-               "message" => "User not found"
-             } = response
+          "message" => "User not found"
+        } = response
     end
   end
 
@@ -79,9 +81,7 @@ defmodule Exmeal.UsersControllerTest do
     test "when id exist, update the user", %{conn: conn} do
       params = build(:users_params)
 
-      {:ok, user} = Exmeal.create_user(params)
-
-      id = user.id
+      {:ok, %User{id: id}} = Exmeal.create_user(params)
 
       updated_params = %{
         name: "Jp Alves"
@@ -92,12 +92,14 @@ defmodule Exmeal.UsersControllerTest do
         |> put(Routes.users_path(conn, :update, id, updated_params))
         |> json_response(:ok)
 
+        %{"user" => %{"id" => id}} = response
+
       assert %{
                "user" => %{
                  "cpf" => "12345678900",
                  "email" => "jp@banana.com",
                  "name" => "Jp Alves",
-                 "id" => _id
+                 "id" => ^id
                }
              } = response
     end
@@ -118,20 +120,20 @@ defmodule Exmeal.UsersControllerTest do
     test "when id exist, return the meal", %{conn: conn} do
       params = build(:users_params)
 
-      {:ok, user} = Exmeal.create_user(params)
-
-      id = user.id
+      {:ok, %User{id: id}} = Exmeal.create_user(params)
 
       response =
         conn
         |> get(Routes.users_path(conn, :show, id))
         |> json_response(:ok)
 
+        %{"user" => %{"id" => id}} = response
+
       assert %{
                "user" => %{
                  "cpf" => "12345678900",
                  "email" => "jp@banana.com",
-                 "id" => _id,
+                 "id" => ^id,
                  "name" => "Jp"
                }
              } = response

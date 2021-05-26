@@ -7,15 +7,16 @@ defmodule Exmeal.Users.CreateTest do
     test "when all params are valid, returns the user" do
       user_params = build(:users_params)
 
-      response = Exmeal.create_user(user_params)
+      {:ok, response} = Exmeal.create_user(user_params)
 
-      assert {:ok,
-              %Exmeal.User{
-                cpf: "12345678900",
-                email: "jp@banana.com",
-                name: "Jp",
-                id: _id
-              }} = response
+      id = response.id
+
+      assert %Exmeal.User{
+               cpf: "12345678900",
+               email: "jp@banana.com",
+               name: "Jp",
+               id: ^id
+             } = response
     end
 
     test "when there are invalid params, returns an error" do

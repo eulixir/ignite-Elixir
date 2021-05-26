@@ -11,16 +11,16 @@ defmodule Exmeal.MealTest do
     test "when all params are valid, returns a valid changeset" do
       user_params = build(:users_params)
 
-      {_ok, user} = Exmeal.create_user(user_params)
-      user_id = user.id
+      Exmeal.create_user(user_params)
 
-      params = %{description: "Batata", date: "2001-05-02", calories: "20", user_id: user_id}
-
-      response = Meal.changeset(params)
+      response =
+        :meals_params
+        |>  build()
+        |> Meal.changeset()
 
       assert %Changeset{
                changes: %{
-                 description: "Batata",
+                 description: "Banana",
                  date: ~D[2001-05-02],
                  calories: 20,
                  user_id: _user_id

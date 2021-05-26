@@ -3,20 +3,22 @@ defmodule Exmeal.Users.GetTest do
 
   import Exmeal.Factory
 
+  alias Exmeal.User
+
   describe "Get User" do
     test "when a valid id is given, returns the user" do
       user_params = build(:users_params)
 
-      {_ok, user} = Exmeal.create_user(user_params)
+      {:ok, %User{id: id}} = Exmeal.create_user(user_params)
 
-      response = Exmeal.get_user_by_id(user.id)
+      response = Exmeal.get_user_by_id(id)
 
       assert {:ok,
               %Exmeal.User{
                 cpf: "12345678900",
                 email: "jp@banana.com",
                 name: "Jp",
-                id: _id
+                id: ^id
               }} = response
     end
 

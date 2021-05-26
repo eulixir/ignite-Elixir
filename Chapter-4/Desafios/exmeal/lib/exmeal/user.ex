@@ -5,8 +5,6 @@ defmodule Exmeal.User do
 
   alias Exmeal.Meal
 
-  # alias Ecto.Changeset
-
   @derive {Jason.Encoder, only: [:cpf, :id, :email, :name]}
   @foreign_key_type :binary_id
 

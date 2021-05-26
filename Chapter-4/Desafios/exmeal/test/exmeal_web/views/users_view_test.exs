@@ -12,7 +12,7 @@ defmodule ExmealWeb.UsersViewTest do
   test "render create.json" do
     user_params = build(:users_params)
 
-    {_ok, user} = Exmeal.create_user(user_params)
+    {:ok, %User{id: id} = user} = Exmeal.create_user(user_params)
 
     response = render(UsersView, "create.json", user: user)
 
@@ -22,7 +22,7 @@ defmodule ExmealWeb.UsersViewTest do
                  cpf: "12345678900",
                  name: "Jp",
                  email: "jp@banana.com",
-                 id: _id
+                 id: ^id
                }
              },
              message: "User created!"
@@ -32,7 +32,7 @@ defmodule ExmealWeb.UsersViewTest do
   test "render user.json" do
     user_params = build(:users_params)
 
-    {_ok, user} = Exmeal.create_user(user_params)
+    {:ok, %User{id: id} = user} = Exmeal.create_user(user_params)
 
     response = render(UsersView, "user.json", user: user)
 
@@ -41,7 +41,7 @@ defmodule ExmealWeb.UsersViewTest do
                cpf: "12345678900",
                name: "Jp",
                email: "jp@banana.com",
-               id: _id
+               id: ^id
              }
            } = response
   end
