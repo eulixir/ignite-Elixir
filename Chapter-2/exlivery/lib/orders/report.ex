@@ -16,6 +16,10 @@ defmodule Exlivery.Orders.Report do
     |> IO.inspect()
   end
 
+  def banana(number)do
+    Decimal.cast(number)
+  end
+
   defp order_string(%Order{user_cpf: cpf, items: items, total_price: total_price}) do
     itens_string = Enum.map(items, fn item -> item_string(item) end)
     "#{cpf}, #{itens_string}, #{total_price}\n"

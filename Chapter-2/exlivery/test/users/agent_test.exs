@@ -1,4 +1,4 @@
-defmodule Exlivery.Users.UserTest do
+defmodule Exlivery.Users.AgentTest do
   use ExUnit.Case
 
   alias Exlivery.Users.Agent, as: UserAgent

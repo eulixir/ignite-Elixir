@@ -1,5 +1,6 @@
 defmodule Exlivery.Orders.Item do
-  @categories [:pizza, :hamburguer, :prato_feito, :japonesa, :sobremesa]
+  @categories [:pizza, :hamburguer, :carne, :prato_feito, :japonesa, :sobremesa]
+
   @keys [:description, :category, :unity_price, :quantity]
 
   @enforce_keys @keys
@@ -13,7 +14,7 @@ defmodule Exlivery.Orders.Item do
     |> build_item(description, category, quantity)
   end
 
-  def build(_description, _category, _quantity, _unity_price) do
+  def build(_description, _category, _unity_price, _quantity) do
     {:error, "Invalid parameters"}
   end
 
@@ -22,8 +23,8 @@ defmodule Exlivery.Orders.Item do
      %__MODULE__{
        description: description,
        category: category,
-       quantity: quantity,
-       unity_price: unity_price
+       unity_price: unity_price,
+       quantity: quantity
      }}
   end
 
